@@ -23,6 +23,8 @@ struct SVGShape: Shape {
 }
 
 enum Glyphs {
+    static let claude = parse(LogoPaths.claude)
+    static let openAI = parse(LogoPaths.openAI)
     /// The mockup's "renova" icon, a 12-unit stroked arrow.
     static let reset = parse("M2.2 6.2A3.8 3.8 0 1 0 3.4 3.4M2.4 1.6v2.3h2.3")
 
@@ -31,7 +33,8 @@ enum Glyphs {
     }
 }
 
-/// Every model, built-ins included, is drawn as a monogram in its accent: no third-party marks.
+/// Official marks for the built-ins (Claude in brand clay, OpenAI in white);
+/// a monogram in the model's accent for everything added by script.
 struct LogoView: View {
     let provider: ProviderID
     let size: CGFloat
@@ -39,8 +42,22 @@ struct LogoView: View {
 
     var body: some View {
         let descriptor = catalog.descriptor(provider)
-        Monogram(letter: descriptor.monogram, color: Theme.accent(descriptor), size: size)
-            .accessibilityLabel(descriptor.displayName)
+        switch descriptor.logo {
+        case .claude:
+            glyph(Glyphs.claude, color: Theme.accent(descriptor), label: "Claude")
+        case .openAI:
+            glyph(Glyphs.openAI, color: Theme.ink, label: "OpenAI")
+        case let .monogram(letter):
+            Monogram(letter: letter, color: Theme.accent(descriptor), size: size)
+                .accessibilityLabel(descriptor.displayName)
+        }
+    }
+
+    private func glyph(_ commands: [SVGCommand], color: Color, label: String) -> some View {
+        SVGShape(commands: commands, viewBox: LogoPaths.viewBox)
+            .fill(color)
+            .frame(width: size, height: size)
+            .accessibilityLabel(label)
     }
 }
 

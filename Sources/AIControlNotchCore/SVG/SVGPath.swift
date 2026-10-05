@@ -10,8 +10,8 @@ public enum SVGCommand: Equatable, Sendable {
     case close
 }
 
-/// Parses SVG path data (`d` attribute) into absolute commands, so small
-/// icons such as the reset arrow can be drawn at runtime without assets.
+/// Parses SVG path data (`d` attribute) into absolute commands, so the official
+/// logos and small icons such as the reset arrow can be drawn at runtime without assets.
 public enum SVGPath {
     public enum ParseError: Error, Equatable {
         case mustStartWithMove

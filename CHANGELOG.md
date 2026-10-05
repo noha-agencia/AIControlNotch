@@ -2,6 +2,12 @@
 
 All notable changes to AIControlNotch are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Claude and Codex are drawn with their official logos. Models added by script keep a letter in their color.
+
 ## [0.1.0] - 2026-10-05
 
 First public release.
@@ -17,4 +23,5 @@ First public release.
 - Install and uninstall scripts that build the app from source.
 - A guide that lets an AI assistant install the app and connect other AI tools: [docs/install-with-ai.md](docs/install-with-ai.md).
 
+[Unreleased]: https://github.com/noha-agencia/AIControlNotch/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/noha-agencia/AIControlNotch/releases/tag/v0.1.0

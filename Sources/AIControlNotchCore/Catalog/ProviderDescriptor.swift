@@ -1,5 +1,12 @@
 import Foundation
 
+/// How a model is drawn: the official mark for the built-ins, a monogram for scripts.
+public enum ProviderLogo: Equatable, Sendable {
+    case claude
+    case openAI
+    case monogram(String)
+}
+
 /// Everything the notch shows about a model besides its numbers.
 public struct ProviderDescriptor: Equatable, Sendable {
     public static let defaultScriptAccent = "#A9B4C8"
@@ -8,15 +15,14 @@ public struct ProviderDescriptor: Equatable, Sendable {
     public let displayName: String
     /// `#RRGGBB`, used for the ruler, the ring and the monogram.
     public let accentHex: String
-    /// The letter drawn for the model. No third-party mark is bundled, built-ins included.
-    public let monogram: String
+    public let logo: ProviderLogo
     public let isScript: Bool
 
     public static let claude = ProviderDescriptor(
-        id: .claude, displayName: "Claude", accentHex: "#D97757", monogram: "C", isScript: false
+        id: .claude, displayName: "Claude", accentHex: "#D97757", logo: .claude, isScript: false
     )
     public static let codex = ProviderDescriptor(
-        id: .codex, displayName: "Codex", accentHex: "#56C9A2", monogram: "C", isScript: false
+        id: .codex, displayName: "Codex", accentHex: "#56C9A2", logo: .openAI, isScript: false
     )
 
     static func builtIn(_ id: ProviderID) -> ProviderDescriptor {
@@ -32,7 +38,7 @@ public struct ProviderDescriptor: Equatable, Sendable {
             id: config.id,
             displayName: config.name,
             accentHex: config.accentHex ?? defaultScriptAccent,
-            monogram: initial(config.name),
+            logo: .monogram(initial(config.name)),
             isScript: true
         )
     }
@@ -41,7 +47,7 @@ public struct ProviderDescriptor: Equatable, Sendable {
     static func fallback(_ id: ProviderID) -> ProviderDescriptor {
         ProviderDescriptor(
             id: id, displayName: id.rawValue, accentHex: defaultScriptAccent,
-            monogram: initial(id.rawValue), isScript: true
+            logo: .monogram(initial(id.rawValue)), isScript: true
         )
     }
 

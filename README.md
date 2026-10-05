@@ -91,7 +91,7 @@ Bug reports, new model scripts and pull requests are welcome. Read [CONTRIBUTING
 
 ## Disclaimer
 
-AIControlNotch is an independent project. It is not affiliated with, endorsed by or sponsored by Anthropic or OpenAI. Claude, Claude Code, Codex and ChatGPT are trademarks of their owners. Their names are used only to identify the services the app reads from, and no logos of theirs are included.
+AIControlNotch is an independent project. It is not affiliated with, endorsed by or sponsored by Anthropic or OpenAI. Claude, Claude Code, Codex and ChatGPT are trademarks of their owners. Their names and logos are shown only to identify the services the app reads from. The logo shapes come from [Simple Icons](https://simpleicons.org).
 
 ---
 

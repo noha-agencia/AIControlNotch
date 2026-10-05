@@ -68,7 +68,7 @@ public protocol UsageProvider: Sendable {
 1. Add the provider in `Sources/AIControlNotchCore/Providers/`. Receive its dependencies through protocols, like `CodexAppServerProvider` does.
 2. Parse the response into `UsageWindow` values and validate every field. Never trust external data. Throw a `UsageError` instead of returning a made up number.
 3. Add tests with fixtures in `Tests/AIControlNotchCoreTests/Fixtures/`, for success and for every failure.
-4. Wire it up in `Sources/AIControlNotchApp/ProviderFactory.swift`, and give it a name, a color and a monogram. Do not bundle third-party logos: every model, the built-in ones included, is drawn as a letter in its color.
+4. Wire it up in `Sources/AIControlNotchApp/ProviderFactory.swift`, and give it a name, a color and a monogram. Only Claude and Codex carry their official logos: new models are drawn as a letter in their color.
 5. Update the docs in both languages: the READMEs, `docs/how-it-works.md` and `docs/pt-BR/how-it-works.md`.
 
 ### Rules for every provider

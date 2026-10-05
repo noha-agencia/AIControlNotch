@@ -141,9 +141,9 @@ import Testing
         #expect(catalog.descriptor(.claude) == .claude)
     }
 
-    @Test func builtInsUseAMonogramNotATrademark() {
-        #expect(ProviderDescriptor.claude.monogram == "C")
-        #expect(ProviderDescriptor.codex.monogram == "C")
+    @Test func builtInsUseTheirOwnLogos() {
+        #expect(ProviderDescriptor.claude.logo == .claude)
+        #expect(ProviderDescriptor.codex.logo == .openAI)
     }
 
     @Test func pinnedComeFirstThenConfigOrder() throws {
@@ -163,7 +163,7 @@ import Testing
         let descriptor = catalog.descriptor(kimi)
         #expect(descriptor.displayName == "Kimi")
         #expect(descriptor.accentHex == "#5B8CFF")
-        #expect(descriptor.monogram == "K")
+        #expect(descriptor.logo == .monogram("K"))
         #expect(descriptor.isScript)
         #expect(catalog.descriptor(grok).accentHex == ProviderDescriptor.defaultScriptAccent)
     }
@@ -171,6 +171,6 @@ import Testing
     @Test func unknownIDsStillGetADescriptor() {
         let stray = ProviderID("old-model")!
         #expect(ProviderCatalog.builtIn.descriptor(stray).displayName == "old-model")
-        #expect(ProviderCatalog.builtIn.descriptor(stray).monogram == "O")
+        #expect(ProviderCatalog.builtIn.descriptor(stray).logo == .monogram("O"))
     }
 }

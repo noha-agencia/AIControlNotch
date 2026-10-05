@@ -90,6 +90,15 @@ import Testing
         #expect(commands.last == .line(CGPoint(x: 3, y: 3)))
     }
 
+    @Test func logosFitTheirViewBox() throws {
+        for path in [LogoPaths.claude, LogoPaths.openAI] {
+            let box = bounds(try SVGPath.parse(path))
+            #expect(box.minX > -0.5 && box.minY > -0.5)
+            #expect(box.maxX < 24.5 && box.maxY < 24.5)
+            #expect(box.width > 20 && box.height > 20)
+        }
+    }
+
     @Test func invalidPathsThrow() {
         #expect(throws: SVGPath.ParseError.self) { _ = try SVGPath.parse("L1 1") }
         #expect(throws: SVGPath.ParseError.self) { _ = try SVGPath.parse("M1") }
