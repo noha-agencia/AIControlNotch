@@ -1,0 +1,13 @@
+.DS_Store
+.build/
+.swiftpm/
+dist/
+*.xcodeproj/
+.claude/
+xcuserdata/
+*.xcuserstate
+*.profraw
+*.profdata
+.env
+.env.*
+.worktrees/

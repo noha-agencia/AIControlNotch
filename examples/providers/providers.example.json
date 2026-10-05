@@ -1,0 +1,14 @@
+{
+  "pinned": ["claude", "codex"],
+  "disabled": [],
+  "providers": [
+    {
+      "id": "example",
+      "name": "Example",
+      "color": "#8E8E93",
+      "command": ["/Users/you/AIControlNotch/examples/providers/template.sh"],
+      "intervalSeconds": 300,
+      "timeoutSeconds": 15
+    }
+  ]
+}
