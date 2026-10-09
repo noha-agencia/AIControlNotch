@@ -8,6 +8,10 @@ All notable changes to AIControlNotch are listed here. The format follows [Keep 
 
 - Claude and Codex are drawn with their official logos. Models added by script keep a letter in their color.
 
+### Fixed
+
+- A renewal date that is more than a year away, or not a real date, no longer crashes the app. A countdown beyond a year reads "in 365d+", and one that is in the past or not a number reads "in 0 min". The absolute time reads "–" when the date is more than a year away or not a number.
+
 ## [0.1.0] - 2026-10-05
 
 First public release.
