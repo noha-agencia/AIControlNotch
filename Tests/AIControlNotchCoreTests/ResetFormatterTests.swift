@@ -70,6 +70,52 @@ import Testing
         #expect(formatter.absolute(seconds(300 * 86_400), now: now) != NotchPresenter.missingValue)
     }
 
+    // Ceiling boundary: 365 days = 31_536_000 s, in both directions.
+    private static let ceiling: Double = 365 * 86_400
+
+    @Test func relativeCeilingBoundaryFuture() {
+        #expect(formatter.relative(seconds(Self.ceiling - 1), now: now) == "em 364d 23h")
+        #expect(formatter.relative(seconds(Self.ceiling), now: now) == "em 365d 0h")
+        #expect(formatter.relative(seconds(Self.ceiling + 1), now: now) == "em 365d+")
+    }
+
+    @Test func relativeCeilingBoundaryPastIsZero() {
+        #expect(formatter.relative(seconds(-(Self.ceiling - 1)), now: now) == "em 0 min")
+        #expect(formatter.relative(seconds(-Self.ceiling), now: now) == "em 0 min")
+        #expect(formatter.relative(seconds(-(Self.ceiling + 1)), now: now) == "em 0 min")
+    }
+
+    @Test func absoluteCeilingBoundaryFuture() {
+        #expect(formatter.absolute(seconds(Self.ceiling - 1), now: now) == "02/10 15:41")
+        #expect(formatter.absolute(seconds(Self.ceiling), now: now) == "02/10 15:42")
+        #expect(formatter.absolute(seconds(Self.ceiling + 1), now: now) == NotchPresenter.missingValue)
+    }
+
+    @Test func absoluteCeilingBoundaryPast() {
+        #expect(formatter.absolute(seconds(-(Self.ceiling - 1)), now: now) == "hoje 15:42")
+        #expect(formatter.absolute(seconds(-Self.ceiling), now: now) == "hoje 15:42")
+        #expect(formatter.absolute(seconds(-(Self.ceiling + 1)), now: now) == NotchPresenter.missingValue)
+    }
+
+    @Test func relativeWithInfiniteNow() {
+        let date = seconds(60)
+        #expect(formatter.relative(date, now: Date(timeIntervalSince1970: .infinity)) == "em 0 min")
+        #expect(formatter.relative(date, now: Date(timeIntervalSince1970: -.infinity)) == "em 365d+")
+    }
+
+    /// Only proves it does not abort. The text is undefined here: `Calendar` cannot
+    /// represent 1e25 s, and `now` is the real clock in production, never 1e25.
+    @Test func absoluteWithDateAndNowBeyondCalendarDoesNotCrash() {
+        let huge = Date(timeIntervalSince1970: 1e25)
+        _ = formatter.absolute(huge, now: huge)
+    }
+
+    @Test func absoluteWithInfiniteNowShowsMissingValue() {
+        let date = seconds(60)
+        #expect(formatter.absolute(date, now: Date(timeIntervalSince1970: .infinity)) == NotchPresenter.missingValue)
+        #expect(formatter.absolute(date, now: Date(timeIntervalSince1970: -.infinity)) == NotchPresenter.missingValue)
+    }
+
     @Test func absoluteToday() {
         #expect(formatter.absolute(TestClock.date(2026, 10, 2, 17, 56), now: now) == "hoje 17:56")
     }

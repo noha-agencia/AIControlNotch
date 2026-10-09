@@ -39,7 +39,8 @@ public struct ResetFormatter: Sendable {
     }
 
     /// "hoje 17:56", "amanhã 09:00", "seg 09:00" (2–6 days), "12/10 09:00" / "Oct 12 09:00" (7+ days).
-    /// Dates more than a year away, or not finite, read "–" (the app's missing value).
+    /// The ceiling is symmetric on purpose: dates more than 365 days away, in the future
+    /// or in the past, or not finite, read "–" (the app's missing value).
     public func absolute(_ date: Date, now: Date) -> String {
         let seconds = date.timeIntervalSince(now)
         guard seconds.isFinite, abs(seconds) <= Self.ceilingSeconds else {
